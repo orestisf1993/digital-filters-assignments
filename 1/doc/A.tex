@@ -1,0 +1,45 @@
+\section{Ερώτημα Α}
+\subsection{Υπολογισμός πίνακα αυτοσυσχέτισης $\Rmatrix$}
+Από την \eqref{eq:u} έχουμε:
+\begin{align*}
+&E[u(n) u^*(n-k)] = -0.78E[u(n-1) u^*(n-k)] + E[v(n) u^*(n-k)]\\
+\implies{}&r_{uu}(k) + 0.78r_{uu}(k-1) = r_{vu}(k)
+\numberthis
+\end{align*}
+όμως
+\begin{equation}
+r_{vu}(k) = \left\{
+    \begin{array}{lr}
+        \sigma_v^2,& \text{αν }k = 0\\
+        0,& \text{αν }k \neq 0
+    \end{array}
+\right\}
+\end{equation}
+άρα
+\begin{alignat}{3}
+k = 0 &\implies r_{uu}(0) + 0.78r_{uu}(-1) = r_{vu}(0) &\implies r_{uu}(0) + 0.78r_{uu}(1) &= \sigma_v^2 = 0.19\\
+k = 1 &\implies r_{uu}(1) + 0.78r_{uu}(0) = r_{vu}(1) &\implies r_{uu}(1) + 0.78r_{uu}(0) &= 0
+\end{alignat}
+Λύνουμε το σύστημα στο MATLAB:
+\begin{lstlisting}[caption={Επίλυση συστήματος στο MATLAB}]
+>> A = [1 0.78; 0.78 1];
+>> B = [0.19; 0];
+>> A \ B
+
+ans =
+
+    0.4852
+   -0.3784
+\end{lstlisting}
+Έτσι, ο πίνακας αυτοσυσχέτισης $\Rmatrix$ είναι:
+\begin{equation}
+\Rmatrix = \begin{bmatrix}
+    r_{uu}(0) & r_{uu}(1)\\
+    r_{uu}(1) & r_{uu}(0)
+\end{bmatrix} =
+\begin{bmatrix}
+    0.4852 & -0.3784\\
+    -0.3784 & 0.4852
+\end{bmatrix}
+\end{equation}
+
