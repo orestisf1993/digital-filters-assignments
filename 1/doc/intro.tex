@@ -1,0 +1,19 @@
+\newcommand{\weiner}[1]{\mathbf{w}\left(#1\right)}
+\newcommand{\Rmatrix}{\mathbf{R}}
+\newcommand{\Pvector}{\mathbf{P}}
+\section{Εισαγωγή}
+\imagehere{init-system}{Το σύστημά μας}
+Μας δίνεται το σύστημα του \imagerefc{init-system}{Σχήματος \ref{fig:init-system}}
+που περιγράφεται από τις εξής εξισώσεις:
+\begin{align}
+x(n) &= \cos{(\pi n)} \sin{(\frac{\pi}{25} n + \frac{\pi}{3})}\label{eq:x}\\
+u(n) &= -0.78 u(n-1) + v(n)\label{eq:u}\\
+d(n) &= x(n) + v(n)\label{eq:x+v}\\
+e(n) &= d(n) - y(n)\label{eq:d-y}
+\end{align}
+
+Για τον υπολογισμό των συντελεστών του φίλτρου χρησιμοποιούμε τον αλγόριθμο
+\href{https://en.wikipedia.org/wiki/Steepest_descent}{steepest descent}:
+\begin{equation}\label{eq:weiner}
+\weiner{n+1} = \weiner{n} + \mu\left(\Pvector{} - \Rmatrix{} \weiner{n}\right)
+\end{equation}
