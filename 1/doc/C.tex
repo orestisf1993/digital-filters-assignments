@@ -1,0 +1,76 @@
+\section{Ερώτημα Γ}
+\newcommand{\plothere}[2]{%
+\begin{figure}[htbp]%
+\centering%
+\includegraphics[keepaspectratio, width=1.0\linewidth]{plots/#1}%
+\caption{#2}
+\label{fig:#1}%
+\end{figure}%
+}
+\lstdefinestyle{chunk}
+{language=Octave,
+numbers=none,
+aboveskip=\smallskipamount,
+belowskip=\smallskipamount,
+captionpos=none
+}
+\lstdefinestyle{declaration}
+{language=Octave,
+title={Declaration της συνάρτησης},
+numbers=none
+}
+Στο αρχείο \url{matlab/steepest_descent.m} βρίσκεται η υλοποίηση του αλγορίθμου \textit{steepest descent}.
+\begin{lstlisting}[style=declaration]
+function [W_history, W] = steepest_descent(p, R, mu, e, max_steps)
+\end{lstlisting}
+Η δομή του είναι η εξής:
+\begin{itemize}
+\item Τα ορίσματα \lstinline!p! και \lstinline!R! παίρνουν τις τιμές $\Pvector$ και $\Rmatrix$.
+\item Το όρισμα \lstinline!mu! παίρνει τις διάφορες τιμές του βήματος $\mu$.
+\item Σε κάθε βήμα του αλγορίθμου η τιμή του \lstinline!W! μεταβάλλεται ως εξής:
+\begin{lstlisting}[style=chunk]
+W = W + mu * (p - R * W);
+\end{lstlisting}
+\item Η συνθήκη τερματισμού 
+\begin{lstlisting}[style=chunk]
+diff = W_history(step) - W_history(step - 1);
+if norm(diff) < e
+    % shrink history size.
+    W_history = W_history(1:step, :);
+    break
+end
+\end{lstlisting}
+όπου \lstinline!e! το όρισμα της συνάρτησης για την ακρίβεια.
+\end{itemize}
+
+Χρησιμοποιήθηκαν οι εξής τιμές για το $\mu$:
+\begin{enumerate}
+\item $\mu=0.01$: Στο \imageref{steepest1}, σύγκλιση σε 4972 βήματα.
+\item $\mu=0.1$: Στο \imageref{steepest2}, σύγκλιση σε 712 βήματα.
+\item $\mu=0.2$: Στο \imageref{steepest3}, σύγκλιση σε 387 βήματα.
+\item $\mu=2$: Στο \imageref{steepest4}, σύγκλιση σε 47 βήματα.
+\item $\mu=2.29263$: Στο \imageref{steepest5}, σύγκλιση σε 497 βήματα.
+\item $\mu=2.33895$: Στο \imageref{steepest6}, απόκλιση.
+\item $\mu=4$: Στο \imageref{steepest7}, απόκλιση.
+\end{enumerate}
+
+\plothere{steepest1}{Διάγραμμα προόδου της steepest descent για $\mu=0.01$}
+\plothere{steepest2}{Διάγραμμα προόδου της steepest descent για $\mu=0.1$}
+\plothere{steepest3}{Διάγραμμα προόδου της steepest descent για $\mu=0.2$}
+\plothere{steepest4}{Διάγραμμα προόδου της steepest descent για $\mu=2$}
+\plothere{steepest5}{Διάγραμμα προόδου της steepest descent για $\mu= 0.99 \mu_{max} = 2.2926$}
+\plothere{steepest6}{Διάγραμμα προόδου της steepest descent για $\mu=1.01 \mu_{max} = 2.3389$}
+\plothere{steepest7}{Διάγραμμα προόδου της steepest descent για $\mu=4$}
+
+Παρατηρήθηκε ότι:
+\begin{enumerate}
+\item Μικρές τιμές $\mu$ συγκλίνουν αργά καθώς γίνονται πολύ μικρά βήματα.
+\item Τιμές κοντά στο $\mu_{max}$ συγκλίνουν αργά καθώς αν και "φτάνουν" γρήγορα στη "περιοχή" της λύσης στο τέλος κάνουν πολύ μεγάλα βήματα και αργούν να την φτάσουν.
+\item Τιμές μεγαλύτερες από το $\mu_{max}$ αποκλίνουν.
+\end{enumerate}
+
+Στα γραφήματα χρησιμοποιήθηκε ως βάση contour plot του criterion:
+\[
+J_w = \sigma_d^2 - 2p^Tw + w^TRw
+\]
+\FloatBarrier
