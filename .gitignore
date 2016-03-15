@@ -291,3 +291,5 @@ sympy-plots-for-*.tex/
 # Allow plot pdfs
 !/*/doc/plots/*
 
+# Ignore .wav files
+*.wav
