@@ -12,8 +12,8 @@ if ~exist('max_steps', 'var')
     max_steps = 1000;
 end
 
-W_history = zeros(max_steps, 2);
-W = [-1; -1];
+W_history = zeros(max_steps, length(R));
+W = -1 * ones(length(R), 1);
 W_history(1, :) = W;
 for step = 2:max_steps
     W = W + mu * (p - R * W);
