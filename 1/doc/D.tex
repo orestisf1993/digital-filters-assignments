@@ -1,0 +1,39 @@
+\section{Ερώτημα Δ}
+Στο αρχείο \url{matlab/wiener.m} βρίσκεται ένα MATLAB script που εκτελεί τις εξής λειτουργίες:
+\begin{itemize}
+\item Φόρτωση των αρχείων \url{matlab/sound.mat} και \url{matlab/noise.mat}.
+\item Υπολογισμός των πινάκων $\Rmatrix_u$ και $\Pvector$.
+\begin{lstlisting}[style=chunk]
+%% Calculate needed values.
+% Αutocorrelation sequence.
+ruu = xcorr(u, max_lag, 'biased');
+% Construct autocorrelation matrix.
+R = toeplitz(ruu(n_coeffs: -1:1));
+% Cross-correlation sequence.
+rdu = xcorr(d, u, max_lag, 'biased');
+% Cross-correlation vector.
+p = rdu(n_coeffs:2 * n_coeffs - 1);
+\end{lstlisting}
+\item Υπολογισμός των συντελεστών του φίλτρου wiener.
+Η διαδικασία γίνεται είτε με την επίλυση της εξίσωσης Wiener-Hopf
+\begin{lstlisting}[style=chunk]
+w_opt = R \ p; % Wiener-Hopf solution
+\end{lstlisting}
+είτε με τη χρήση του steepest descent.
+\begin{lstlisting}[style=chunk]
+[~, w_opt] = steepest_descent(p, R, mu, 0.0000001, 100000);
+\end{lstlisting}
+\item Φιλτράρισμα του ήχου.
+\begin{lstlisting}[style=chunk]
+%% Filter sound.
+y = conv(w_opt, u);
+e = d - y(1:length(d));
+\end{lstlisting}
+\item Αναπαραγωγή και αποθήκευσή του.
+\begin{lstlisting}[style=chunk]
+%% Play result.
+sound(e, Fs);
+audiowrite('result.wav', e, Fs);
+\end{lstlisting}
+\end{itemize}
+Μετά την αναπαραγωγή του φιλτραρισμένου ήχου αναγνωρίστηκε το τραγούδι \href{https://youtu.be/xSHYlSxQyJM}{Bang Bang} εκτέλεση (διασκεύη) από τη Nancy Sinatra. (Μπορεί να είναι μια έκδοση ελαφρά διαφορετική από το παραπάνω link)
