@@ -43,3 +43,32 @@ ans =
 \end{bmatrix}
 \end{equation}
 
+\subsection{Υπολογισμός διανύσματος ετεροσυσχέτισης $\Pvector$}
+Από τις \eqref{eq:u} και \eqref{eq:x+v}:
+\begin{align*}
+p(-k) ={}& E[u(n - k) d^*(n)]\\
+={}& E[(u(n - k - 1) + v(n - k)) (x^*(n) + v^*(n))]\\
+={}& -0.78E[u(n - k - 1) x^*(n)]\\
+& -0.78E[u(n - k - 1) v^*(n)]\\
+& + E[v(n - k) x^*(n)]\\
+& + E[v(n - k) v^*(n)]
+\numberthis\label{eq:p-init}
+\end{align*}
+Όμως επειδή το $x$ είναι ασυσχέτιστο με τα $v$ και $u$ ισχύει:
+\begin{align*}
+E[u(n - k - 1) x^*(n)] &= 0\\
+E[v(n - k) x^*(n)] &= 0
+\end{align*}
+η \eqref{eq:p-init} γίνεται:
+\begin{equation}
+p(-k) = -0.78E[u(n - k - 1) v^*(n)] + E[v(n - k) v^*(n)] = -0.78r_{uv}(k + 1) + r_{vv}(k)
+\end{equation}
+Άρα, μπορούμε να βρούμε το $\Pvector$:
+\begin{align*}
+k = 0 \implies& p(0) = -0.78r_{uv}(1) + r_{vv}(0) = 0.19\numberthis\\
+k = 1 \implies& p(-1) = -0.78r_{uv}(2) + r_{vv}(1) = 0\numberthis
+\end{align*}
+και
+\begin{equation}
+\Pvector = \begin{bmatrix} p(0) & p(-1)\end{bmatrix}^T = \begin{bmatrix} 0.19 & 0\end{bmatrix}^T
+\end{equation}
