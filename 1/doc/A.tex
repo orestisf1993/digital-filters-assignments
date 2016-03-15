@@ -72,3 +72,24 @@ k = 1 \implies& p(-1) = -0.78r_{uv}(2) + r_{vv}(1) = 0\numberthis
 \begin{equation}
 \Pvector = \begin{bmatrix} p(0) & p(-1)\end{bmatrix}^T = \begin{bmatrix} 0.19 & 0\end{bmatrix}^T
 \end{equation}
+
+\subsection{Υπολογισμός βέλτιστων συντελεστών φίλτρου wiener $w_o$}
+Σύμφωνα με την εξίσωση Wiener-Hopf έχουμε:
+\begin{equation}
+\Rmatrix w_o = \Pvector \implies w_o = \Rmatrix^{-1}\Pvector
+\end{equation}
+\begin{lstlisting}
+>> r = A \ B;
+>> R = [r(1) r(2); r(2) r(1)];
+>> P = [0.19 0]';
+>> R \ P
+
+ans =
+
+    1.0000
+    0.7800
+\end{lstlisting}
+Άρα
+\begin{equation}
+w_o = \begin{bmatrix} 1 & 0.78\end{bmatrix}^T
+\end{equation}
