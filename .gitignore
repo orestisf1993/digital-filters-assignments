@@ -288,3 +288,6 @@ sympy-plots-for-*.tex/
 *.bak
 *.sav
 
+# Allow plot pdfs
+!/*/doc/plots/*
+
