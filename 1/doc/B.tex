@@ -1,0 +1,12 @@
+\section{Ερώτημα Β}
+\begin{lstlisting}
+>> 2 / max(eig(R))
+
+ans =
+
+    2.3158
+\end{lstlisting}
+Άρα, ο αλγόριθμος steepest descent συγκλίνει προς την πραγματική λύση όταν το $\mu$ τηρεί την συνθήκη \eqref{eq:mu-stability}:
+\begin{equation}
+0 < \mu < \frac{2}{\lambda_{max}} \implies 0 < \mu < 2.3158\label{eq:mu-stability}
+\end{equation}
