@@ -32,7 +32,7 @@ function [W_history, W] = steepest_descent(p, R, mu, e, max_steps)
 \begin{lstlisting}[style=chunk]
 W = W + mu * (p - R * W);
 \end{lstlisting}
-\item Η συνθήκη τερματισμού 
+\item Η συνθήκη τερματισμού
 \begin{lstlisting}[style=chunk]
 diff = W_history(step) - W_history(step - 1);
 if norm(diff) < e
