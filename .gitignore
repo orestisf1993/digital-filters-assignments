@@ -290,6 +290,8 @@ sympy-plots-for-*.tex/
 
 # Allow plot pdfs
 !/*/doc/plots/*
+# Allow assigment pdfs
+!AF-assignment*.pdf
 
 # Ignore .wav files
 *.wav
