@@ -58,8 +58,23 @@ end
 fprintf('split input even odd : %e\n', norm(y - y_correct))
 
 %% Apply w identities
-% etc
-% ...
+j = (0:n / 2 - 1)';
+
+x1 = zeros(n / 2, 1);
+for k = 0:n / 2 - 1
+    x1(k + 1) = sum(x(2 * j + 1) .* w(n / 2, j * k));
+end
+
+x2 = zeros(n / 2, 1);
+for k = 0:n / 2 - 1
+    x2(k + 1) = sum(x(2 * j + 1 + 1) .* w(n / 2, j * k));
+end
+
+omega = diag(w(n, j));
+y = [x1 + omega * x2; x1 - omega * x2];
+
+fprintf('apply w identities : %e\n', norm(y - y_correct))
+
 
 %% Complete the proof
 fe = fft(x((0:2:n - 1) + 1));
