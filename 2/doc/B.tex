@@ -1,1 +1,41 @@
 \section{Ερώτημα Β}
+Η αναδρομική συνάρτηση για τον υπολογισμό του FFT βρίσκεται στο αρχείο \texttt{fft/fftrecursive.m}.
+\begin{code}
+\inputminted[frame=single, breaklines=true, linenos=true, firstline=11, lastline=19]{MATLAB}{../fft/fftrecursive.m}
+\caption{Το κυρίως μέρος της \texttt{fftrecursive}}
+\end{code}
+
+Όπως φαίνεται και από τα σχόλια το κόστος είναι:
+\begin{equation}
+T(n) = T(n/2) + T(n/2) + 6n/2 + 2n = 2T(\frac{n}{2}) + 5n
+\end{equation}
+
+\begin{itemize}
+\item $T(1)=0$ αφού δεν γίνεται καμία αριθμητική πράξη.
+\item $T(2)=4$ αφού:
+\begin{itemize}
+\item $2T(n/2)=2T(1)=0$.
+\item \mintinline{MATLAB}!d = exp(-2 * pi * 1i / 2) .^ (0:2 / 2 - 1) = 1!
+\item \mintinline{MATLAB}!z = (d.') .* y_bottom = y_bottom;! 0 κόστος.
+\item \mintinline{MATLAB}!y = [y_top + z; y_top - z];! 2 προσθέσεις μιγαδικών άρα 4 flops.
+\end{itemize}
+\item $T(4)=2T(2)+5\cdot4$.
+\item $T(8)=2T(4)+5\cdot8=4T(2)+5\cdot8+5\cdot8=4T(2)+2\cdot5\cdot8$.
+\item $T(16)=2T(8)+5\cdot16=8T(2)+2\cdot5\cdot16+5\cdot16=8T(2)+3\cdot5\cdot16$.
+\\\vdots
+\item $T(n)=\frac{n}{2}T(2)+\log_2{\frac{n}{2}}\cdot5n$.
+\item $T(2n)=2T(2n/2)+5\cdot2n=
+2(\frac{n}{2}T(2)+\log_2{\frac{n}{2}}\cdot5n)+5\cdot2n=
+\frac{2n}{2}T(2)+\log_2{\frac{n}{2}}\cdot10n + 10n=
+\frac{2n}{2}T(2)+(\log_2{n}-\log_2{2}+1)\cdot10n=
+\frac{2n}{2}T(2)+\log_2{\frac{2n}{2}}\cdot5(2n)$.
+\end{itemize}
+
+Άρα σύμφωνα με την μαθηματική επαγωγή:
+\begin{equation}
+T(n)=\frac{n}{2}T(2)+\log_2{\frac{n}{2}}\cdot5n\in O(n\log_2{n})
+\end{equation}
+Επίσης, αφού $T(2)=4$, επιβεβαιώνεται και η σχέση της εκφώνησης:
+\begin{equation}
+T(n)=\frac{n}{2}T(2)+6\frac{n}{2}+2T(\frac{n}{2})=4\frac{n}{2}+3n+2T(\frac{n}{2})=2T(\frac{n}{2}) + 5n
+\end{equation}

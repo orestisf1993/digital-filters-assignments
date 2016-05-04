@@ -11,7 +11,6 @@ end
 if n == 1
     y = x;
 else
-%     y = zeros(n, 1);
     y_top = fftrecursive(x(1:2:n - 1));  % T(n/2) cost.
     y_bottom = fftrecursive(x(2:2:n));  % T(n/2) cost.
     d = exp(-2 * pi * 1i / n) .^ (0:n / 2 - 1);
