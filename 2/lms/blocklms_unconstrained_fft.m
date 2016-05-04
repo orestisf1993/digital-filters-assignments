@@ -24,7 +24,7 @@ for k = 1:kmax
     % k-1-th block together with k-th block in a 2M length vector.
     newu = fft(u((k - 1) * M + 1:(k + 1) * M), 2 * M);
     newd = d(k * M + 1:(k + 1) * M);
- 
+
     % For y keep only the last block, drop the first block.
     y = ifft(newu .* w);
     y = y(M + 1:2 * M, 1);
