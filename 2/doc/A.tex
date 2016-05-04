@@ -1,1 +1,52 @@
 \section{Ερώτημα Α}
+Συμπληρώθηκε ο κώδικας στο αρχείο \texttt{fft/fftproof.m}.
+Προστέθηκε η σχέση
+\begin{equation}
+\hat{x_k} = \sum\limits_{j=0}^{2^{q-1}-1}{x(2j)e^{-2\pi{}\frac{jk}{2^{q-1}}}} +
+e^{-2\pi{}\frac{k}{2^q}}\sum\limits_{j=0}^{2^{q-1}-1}{x(2j+1)e^{-2\pi{}\frac{jk}{2^{q-1}}}}
+\end{equation}
+σε μορφή με πράξεις πινάκων:
+\begin{equation}
+\bm{\hat{x_k}} = \begin{bmatrix}
+\bm{\hat{x}}^{(1)} + \Omega_n\bm{\hat{x}}^{(2)}\\
+\bm{\hat{x}}^{(1)} - \Omega_n\bm{\hat{x}}^{(2)}
+\end{bmatrix},
+\Omega_n = \begin{bmatrix}
+\omega_n^0 & 0 & \ldots & 0\\
+0 & \omega_n^1 & \ldots & \vdots\\
+\vdots & \ddots & \ddots & 0\\
+0 & \ldots & 0 & \omega_n^{k-1}
+\end{bmatrix}
+\end{equation}
+
+\begin{code}
+\begin{minted}{MATLAB}
+ fprintf('split input even odd : %e\n', norm(y - y_correct))
+
+ %% Apply w identities
+-% etc
+-% ...
++j = (0:n / 2 - 1)';
++
++x1 = zeros(n / 2, 1);
++for k = 0:n / 2 - 1
++    x1(k + 1) = sum(x(2 * j + 1) .* w(n / 2, j * k));
++end
++
++x2 = zeros(n / 2, 1);
++for k = 0:n / 2 - 1
++    x2(k + 1) = sum(x(2 * j + 1 + 1) .* w(n / 2, j * k));
++end
++
++omega = diag(w(n, j));
++y = [x1 + omega * x2; x1 - omega * x2];
++
++fprintf('apply w identities : %e\n', norm(y - y_correct))
++
+
+ %% Complete the proof
+ fe = fft(x((0:2:n - 1) + 1));
+\end{minted}
+\caption{Οι αλλαγές στο αρχείο \texttt{fftproof.m}}
+\label{code:fftproof}
+\end{code}
