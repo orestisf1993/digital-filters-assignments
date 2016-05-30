@@ -142,6 +142,9 @@ slprj/
 
 *.mat
 
+# Matlab live scripts
+*.mlx
+
 #####=== Vim ===#####
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
