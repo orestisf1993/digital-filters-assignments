@@ -1,0 +1,36 @@
+%&../../preamble
+\input{../../preamble-ext}
+
+\renewcommand{\imageref}[1] {%
+\hyperref[fig:#1]{Σχήμα \ref{fig:#1}}}
+\renewcommand{\imagerefc}[2] {%
+\hyperref[fig:#1]{#2}}
+
+\newcommand{\imagehere}[2]{%
+\begin{figure}[H]%
+\centering%
+\includegraphics[keepaspectratio, width=1.0\linewidth]{images/#1}%
+\caption{#2}
+\label{fig:#1}%
+\end{figure}%
+}
+
+\title{3η Εργασία στα Ψηφιακά Φίλτρα\\
+Α Μέρος: Εξουδετέρωση Περιοδικών Παρεμβολών Χωρίς Σήμα Αναφοράς
+}
+\author{Ορέστης Φλώρος-Μαλιβίτσης, 7796\\
+Τομέας Ηλεκτρονικής,\\
+Τμήμα Ηλ. Μηχανικών / Μηχανικών ΗΥ,\\
+Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}
+\titlepic{\includegraphics[width=0.40\textwidth]{../../../university}}
+
+\begin{document}
+\deactivateBG
+\maketitle
+\tableofcontents
+%\lstlistoflistings
+%\listoffigures
+%\listoftables
+\activateBG
+\input{intro}
+\end{document}
