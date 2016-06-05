@@ -1,0 +1,103 @@
+\section{Ερώτημα Α}
+\subsection{Υπολογισμός πίνακα αυτοσυσχέτισης}
+Από την \eqref{eq:u} έχουμε:
+\begin{align*}
+\begin{split}
+E[u(n) u^*(n-k)]={}&
+-0.87E[u(n-1) u^*(n-k)]\\
+&-0.12E[u(n-2) u^*(n-k)]\\
+&-0.032E[u(n-3) u^*(n-k)]\\
+&+E[v_1(n) u^*(n-k)]\\
+\end{split}\\
+\implies{}&
+r_{uu}(k)
++0.87r_{uu}(k-1)
++0.12r_{uu}(k-2)
++0.032r_{uu}(k-3)
+= r_{{v_1}u}(k)\numberthis
+\end{align*}
+όμως
+\begin{equation}
+r_{{v_1}u}(k) = \left\{
+    \begin{array}{lr}
+        \sigma_{v_1}^2,& \text{αν }k = 0\\
+        0,& \text{αν }k \neq 0
+    \end{array}
+\right\}
+\end{equation}
+άρα
+\begin{align*}
+k = 0 &\implies r_{uu}(0) + 0.87r_{uu}(-1) + 0.12r_{uu}(-1) + 0.032r_{uu}(-3) = r_{{v_1}u}(0) = \sigma_{v_1}^2 = 0.73\\
+k = 1 &\implies r_{uu}(1) + 0.87r_{uu}(0) + 0.12r_{uu}(0) + 0.032r_{uu}(-2) = r_{{v_1}u}(1) = 0\\
+k = 2 &\implies r_{uu}(2) + 0.87r_{uu}(1) + 0.12r_{uu}(1) + 0.032r_{uu}(-1) = r_{{v_1}u}(2) = 0\\
+k = 3 &\implies r_{uu}(3) + 0.87r_{uu}(2) + 0.12r_{uu}(2) + 0.032r_{uu}(0) = r_{{v_1}u}(3) = 0
+\end{align*}
+Λύνουμε το σύστημα στο MATLAB και βρίσκουμε τον Toeplitz πίνακα του αποτελέσματος ($\Rmatrix$):
+\begin{code}
+\begin{minted}{MATLAB}
+>> A = [1 0.87 0.12 0.032; 0.87 1.12 0.032 0; 0.12 0.902 1 0; 0.032 0.12 0.87 1];
+>> B = [0.73; 0; 0; 0];
+>> r = A \ B
+
+r =
+
+    1.9927
+   -1.5818
+    1.1877
+   -0.9072
+
+>> R = toeplitz(r)
+
+R =
+
+    1.9927   -1.5818    1.1877   -0.9072
+   -1.5818    1.9927   -1.5818    1.1877
+    1.1877   -1.5818    1.9927   -1.5818
+   -0.9072    1.1877   -1.5818    1.9927
+\end{minted}
+\caption{Επίλυση συστήματος στο MATLAB και εύρεση του $\Rmatrix$}
+\end{code}
+
+\subsection{Υπολογισμός διανύσματος ετεροσυσχέτισης}
+Από τις \eqref{eq:u} και \eqref{eq:d}:
+\begin{dmath}
+p(-k) = E[u(n - k) d^*(n)] = \ldots =
+-0.23r_{uu}(k)+0.67r_{uu}(k+1)-0.18r_{uu}(k+2)+0.39r_{uu}(k+3)
+\end{dmath}
+καθώς τα $u$ και $x$ είναι ασυσχέτιστα.
+
+Άρα, μπορούμε να βρούμε το $\Pvector$:
+\begin{align*}
+k = 0 \implies& p(0)  = -0.23r_{uu}(0)+0.67r_{uu}(1)-0.18r_{uu}(2)+0.39r_{uu}(3) = -0.7702\\
+k = 1 \implies& p(-1) = -0.23r_{uu}(1)+0.67r_{uu}(2)-0.18r_{uu}(3)+0.39r_{uu}(4) = 2.4469\\
+k = 2 \implies& p(-2) = -0.23r_{uu}(2)+0.67r_{uu}(3)-0.18r_{uu}(4)+0.39r_{uu}(5) = -2.3086\\
+k = 3 \implies& p(-3) = -0.23r_{uu}(3)+0.67r_{uu}(4)-0.18r_{uu}(5)+0.39r_{uu}(6) = 2.0663
+\end{align*}
+και
+\begin{equation}
+\Pvector = \begin{bmatrix} p(0) & p(-1) & p(-2) & p(-3)\end{bmatrix}^T = \begin{bmatrix} -0.7702 & 2.4469 & -2.3086 & 2.0663 \end{bmatrix}^T
+\end{equation}
+
+\subsection{Υπολογισμός βέλτιστων συντελεστών φίλτρου wiener}
+Σύμφωνα με την εξίσωση Wiener-Hopf έχουμε:
+\begin{equation}
+\Rmatrix w_o = \Pvector \implies w_o = \Rmatrix^{-1}\Pvector
+\end{equation}
+\begin{code}
+\begin{minted}{MATLAB}
+>> P = [-0.7702; 2.4469; -2.3086; 2.0663];
+>> R \ P
+
+ans =
+
+    1.5722
+    2.2379
+    0.0363
+    0.4477
+\end{minted}
+\caption{Επίλυση εξίσωσης Wiener-Hopf στο MATLAB}
+\end{code}
+Άρα
+\begin{equation}
+w_o = \begin{bmatrix} 1.5722 & 2.2379 & 0.0363 & 0.4477 \end{bmatrix}^T
+\end{equation}
