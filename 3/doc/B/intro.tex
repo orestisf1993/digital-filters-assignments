@@ -1,0 +1,13 @@
+\newcommand{\weiner}[1]{\mathbf{w}\left(#1\right)}
+\newcommand{\Rmatrix}{\mathbf{R}}
+\newcommand{\Pvector}{\mathbf{P}}
+\section{Εισαγωγή}
+\imagehere{init-system}{Το σύστημά μας}
+Μας δίνεται το σύστημα του \imagerefc{init-system}{Σχήματος \ref{fig:init-system}}
+που περιγράφεται από τις εξής εξισώσεις:
+\begin{align}
+s(n) &= -0.23 u(n) + 0.67 u(n - 1) - 0.18 u(n - 2) + 0.39 u(n - 3)\label{eq:s}\\
+u(n) &= -0.87 u(n - 1) - 0.12 u(n - 2) - 0.032 u(n - 3) + v_1(n)\label{eq:u}\\
+x(n) &= -0.57 x(n - 1) - 0.16 x(n - 2) - 0.08 x(n - 3) + v_2(n)\label{eq:x}\\
+d(n) &= s(n) + x(n)\label{eq:d}
+\end{align}
