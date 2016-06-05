@@ -9,7 +9,7 @@ s = s(:);
 d = s;
 
 u = zeros(size(d));
-u(delta + 1:end) = d(1: end - delta);
+u(delta + 1:end) = d(1:end - delta);
 
 %% Calculate correlations. Lecture 7 Page 3.
 [r, lags] = xcorr(u, u, M + 1, 'unbiased');
@@ -26,24 +26,24 @@ rbar = rbar(:);
 % Optimal Forward Predictor.
 w_o = R \ rbar;
 % Forward Prediction Error Power.
-P_M = r(1) - rbar.'*w_o;
+P_M = r(1) - rbar.' * w_o;
 
 %% Call levinson function.
 [~, L, ~, P] = my_levinson(r, M);
 
-%%
+%% Cross correlation.
 % Calculate the cross correlation between each signal b[i] and the desired
 % signal s. Because b's size, n x (M+1), is too large (>4GB in current
 % example) we caclulate it seperately for each coefficient and don't save
 % the values afterwards.
 fprintf('Calculating cross correlation vector p.\n');
-p = zeros(M+1, 1);
-for i = 1 : M + 1
-    fprintf('Coefficient %d/%d.\n', i, M+1);
-    
+p = zeros(M + 1, 1);
+for i = 1:M + 1
+    fprintf('Coefficient %d/%d.\n', i, M + 1);
+
     b = filter(L(i, 1:i), 1, u);
     b(1:i) = u(1:i);
-    
+
     [rb, lags] = xcorr(b, s, 1, 'unbiased');
     p(i) = rb(lags == 0);
 end
@@ -56,9 +56,9 @@ g_o = D \ p;
 %%
 fprintf('Calculating the predictor`s output.\n');
 y = zeros(n, 1);
-for i = 1:M+1
-    fprintf('Coefficient %d/%d.\n', i, M+1);
-    
+for i = 1:M + 1
+    fprintf('Coefficient %d/%d.\n', i, M + 1);
+
     b = filter(L(i, 1:i), 1, u);
     b(1:i) = u(1:i);
     y = y + g_o(i) * b;
