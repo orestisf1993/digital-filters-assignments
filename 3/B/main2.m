@@ -24,9 +24,8 @@ for f_id = 1:length(functions)
     name = function_names{f_id};
     y = results{f_id, 1};
     w = results{f_id, 2};
-    fprintf('Playing sound resulting from %s.\nPress Enter to stop sound.', name);
+    fprintf('Playing sound resulting from %s.\nPress Enter to stop sound.\n', name);
     sound(d - y, fs);
     pause;
     clear sound;
 end
-
