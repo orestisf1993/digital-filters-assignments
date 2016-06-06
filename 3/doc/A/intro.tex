@@ -1,0 +1,17 @@
+\newcommand{\weiner}[1]{\mathbf{w}\left(#1\right)}
+\newcommand{\wienero}{\mathbf{w_o}}
+\newcommand{\Rmatrix}{\mathbf{R}}
+\newcommand{\Pvector}{\mathbf{p}}
+\section{Εισαγωγή}
+\imagehere{init-system}{Το σύστημά μας}
+Μας δίνεται το σύστημα του \imagerefc{init-system}{Σχήματος \ref{fig:init-system}}
+που περιγράφεται από τις εξής εξισώσεις:
+\begin{align}
+x(n) &= A\left(\sin\left(2 \pi f_o n + \phi\right) + \cos\left(4 \pi f_o n + \phi\right) + \cos\left(7 \pi n + \frac{\phi}{3} \right)\right), f_o=\frac{1}{4}, \phi=\frac{\pi}{2}, A=2.3\label{eq:x}\\
+s(n) &= x(n) + v(n)\label{eq:s}\\
+u(n) &= s(n - \Delta)\label{eq:u}\\
+d(n) &= s(n)\\
+e(n) &= d(n) - y(n)\label{eq:e}
+\end{align}
+Όπου το $v(n)$ είναι λευκός θόρυβος με μηδενική μέση τιμή και διακύμανση $\sigma_{v}^2 = 0.34$
+και $\Delta = 10$.
