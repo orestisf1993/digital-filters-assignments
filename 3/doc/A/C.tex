@@ -1,0 +1,20 @@
+\section{Ερώτημα Γ}\label{section:C}
+Οι υπολογισμοί έγιναν στη συνέχεια του αρχείου \texttt{main1.m}.
+Η υλοποίηση του αλγορίθμου Levinson-Durbin γίνεται στο αρχείο \texttt{my_levinson.m}.
+Προκύπτουν οι εξής διαφορές:
+\begin{enumerate}
+\item Διαφορά (MSE) στους συντελεστές πρόβλεψης $\alpha_m$ σε σχέση με τον αλγόριθμο \mintinline{MATLAB}!levinson! του MATLAB: \mintinline{MATLAB}!9.833868e-30!.
+\item Διαφορά (MSE) στους παραμέτρους ανάκλασης $\Gamma_m$ σε σχέση με τον αλγόριθμο \mintinline{MATLAB}!levinson! του MATLAB: \mintinline{MATLAB}!9.223482e-30!.
+\item Διαφορά στη δύναμη του σφάλματος πρόβλεψης $P_m$ σε σχέση με τον αλγόριθμο \mintinline{MATLAB}!levinson! του MATLAB: \mintinline{MATLAB}!9.984021e-31!.
+\item Διαφορά στη σύγκριση των $L^T \underbar{\gamma}$ και $\underbar{\wienero}$: \mintinline{MATLAB}!7.967151e-04!.
+\end{enumerate}
+
+\begin{figure}
+\includegraphics[width=\linewidth]{plots/wiener}
+\caption{Μέσο τετραγωνικό σφάλμα εξόδου φίλτρου για τους συντελεστές $\wienero$}
+\end{figure}
+\begin{figure}
+\includegraphics[width=\linewidth]{plots/jpe}
+\caption{Μέσο τετραγωνικό σφάλμα εξόδου φίλτρου για τον estimator}
+\end{figure}
+\FloatBarrier
