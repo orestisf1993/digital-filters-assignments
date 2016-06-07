@@ -2,7 +2,7 @@ clear; close;
 
 %% Initialize.
 M = 100; % Number of filter coefficients.
-sigmav2 = 0.68; % noise variance
+sigmav2 = 0.34; % noise variance
 n = 250000;
 v = sqrt(sigmav2) * randn(n, 1);
 v = v - mean(v);
