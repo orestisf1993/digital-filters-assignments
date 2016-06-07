@@ -15,10 +15,7 @@ w = zeros(M, 1);
 y = zeros(size(u));
 e = zeros(size(u));
 
-counter = 0;
 for i = (M + 1):n
-    fprintf(1, repmat('\b', 1, counter));
-    counter = fprintf('%f%% done.\r', (i - M - 1) / n * 100);
     ubar = u(i:-1:i - M + 1);
     y(i) = w.' * ubar;
     k = 1 / lambda * P * ubar / (1 + 1 / lambda * ubar' * P * ubar);
